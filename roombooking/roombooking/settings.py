@@ -78,6 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'roombooking',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST':'LOCALHOST',
     }
 }
 
