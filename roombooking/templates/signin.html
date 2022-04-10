@@ -48,7 +48,8 @@ hr {
 </style>  
 </head>  
 <body>  
-<form>  
+<form method='post'>  
+  {% csrf_token %}
   <div class="container">  
   <center>  <h1> LOGIN </h1> </center>  
   <hr>  
@@ -62,5 +63,10 @@ hr {
   
     <button type="submit" class="registerbtn">Register</button>    
 </form>  
+{% for message in messages %}
+<div>
+  <h2><p style="color:red">{{message}}</p></h2>
+</div>
+{% endfor %}
 </body>  
 </html>  

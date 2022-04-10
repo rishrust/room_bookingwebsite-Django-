@@ -34,7 +34,7 @@ def signup(request):
                     user.phone=phone
                     user.email=email
                     user.save()
-                    return HttpResponse('usercreated')
+                    return redirect('/signin')
 
         else:
              messages.info(request,'Password not Matching')
@@ -43,7 +43,22 @@ def signup(request):
         return render(request,'signup.html')
 
 def signin(request):
-    return render(request,'signin.html')
+    if request.method=='POST':
+        username=str(request.POST['username'])
+        psw=str(request.POST['psw'])
+        if users.objects.filter(username=username).exists():
+            a=users.objects.filter(username=username)
+            if psw==a[0].psw:
+                return HttpResponse('Login Successful')
+            else:
+                messages.info(request,'Enter correct password')
+                return redirect('/signin')
+        else:
+            messages.info(request,'Username not Registered')
+            return redirect('/signin')
+
+    else:
+        return render(request,'signin.html')
 
 def signinmanager(request):
     return render(request,'signinmanager.html')
