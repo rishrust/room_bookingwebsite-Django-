@@ -48,9 +48,15 @@ hr {
 </style>  
 </head>  
 <body>  
-<form>  
+<form method='post'>  
+  {% csrf_token %}
   <div class="container">  
   <center>  <h1> Register New User</h1> </center>  
+  {% for message in messages %}
+<div>
+  <h2><p style="color:red">{{message}}</p></h2>
+</div>
+{% endfor %}
   <hr>  
   <label> <h2>Firstname</h2> </label>   
 <input type="text" name="firstname" placeholder= "Firstname" size="30" required />   
@@ -75,5 +81,11 @@ hr {
     <input type="password" placeholder="Retype Password" name="psw-repeat" required>  
     <button type="submit" class="registerbtn">Register</button>    
 </form>  
+{% for message in messages %}
+<div>
+  {{message}}
+</div>
+{% endfor %}
+
 </body>  
 </html>  
