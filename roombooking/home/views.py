@@ -1,12 +1,14 @@
+from asyncio.windows_events import NULL
 from pickle import FALSE
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.shortcuts import render,HttpResponse,redirect
 from .models import users
 #from django.contrib.auth.models import User , auth
 
 
 def homepage(request):
-    return render(request,'index.html')
+    return render(request,'index.html',{'login':False})
 
 def signup(request):
     if request.method=='POST':
@@ -49,7 +51,7 @@ def signin(request):
         if users.objects.filter(username=username).exists():
             a=users.objects.filter(username=username)
             if psw==a[0].psw:
-                return HttpResponse('Login Successful')
+                return render(request,'index.html',{'login':True,'firstname':users.objects.filter(username=username)[0].firstname})
             else:
                 messages.info(request,'Enter correct password')
                 return redirect('/signin')
@@ -61,5 +63,38 @@ def signin(request):
         return render(request,'signin.html')
 
 def signinmanager(request):
-    return render(request,'signinmanager.html')
+    if users.objects.filter(username='rishabhadmin').exists():
+        pass
+    else:
+        user=users()
+        user.firstname='rishabhAdmin'
+        user.lastname=NULL
+        user.username='rishabhadmin'
+        user.psw='12345678'
+        user.phone=NULL
+        user.email=NULL
+        user.issroommanager=True
+        user.save()
 
+    if request.method=='POST':
+        username=request.POST['username']
+        psw=request.POST['psw']
+        if users.objects.filter(username=username).exists() and users.objects.filter(username=username)[0].issroommanager==True:
+            a=users.objects.filter(username=username)
+            if a[0].psw==psw:
+                return HttpResponse("welcome manager")
+            else:
+                messages.info(request,'wrong password')
+                return redirect('/signinmanager')
+        elif users.objects.filter(username=username).exists() :
+            messages.info(request,'Only Room Manger Can Access')
+            return redirect('/signinmanager')
+        else:
+            messages.info(request,'No Username Registered')
+            return redirect('/signinmanager')
+    else:
+        return render(request,'signinmanager.html')
+
+def logout_view(request):
+    #logout(request)
+    return redirect('/')

@@ -14,6 +14,7 @@
 				<a href="index.html"><img src="{% static 'images/logo.jpg' %}" alt="LOGO" height="200" width="362"></a>
 			</div>
 			<ul class="navigation">
+			{% if login is False %}
 				<li class="active">
 					<a href="/signup">SIGNUP</a>
 				</li>
@@ -23,12 +24,20 @@
 				<li>
 					<a href="/signinmanager">LOGIN MANAGER</a>
 				</li>
-				<li>
-					<a href="practices.html">Practices</a>
+				{% endif %}
+				
+				{% if login is True %}
+				<h1>Welcome {{firstname}}</h1>
+				<li class="active">
+					<a href="practices.html">Book Room</a>
 				</li>
-				<li>
-					<a href="contact.html">Contact</a>
+				<li class="active">
+					<a href="contact.html">View Bookings</a>
 				</li>
+				<li class="active">
+					<a href="/logout_view">Logout</a>
+				</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>
