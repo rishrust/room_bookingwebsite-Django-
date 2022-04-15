@@ -62,7 +62,7 @@ def signin(request):
     else:
         return render(request,'signin.html')
 
-def signinmanager(request):
+def signinmanager(request):     ## manager signin by default ia am creating one manager rishabhadmin 
     if users.objects.filter(username='rishabhadmin').exists():
         pass
     else:
@@ -77,12 +77,12 @@ def signinmanager(request):
         user.save()
 
     if request.method=='POST':
-        username=request.POST['username']
+        username=request.POST['username']  
         psw=request.POST['psw']
         if users.objects.filter(username=username).exists() and users.objects.filter(username=username)[0].issroommanager==True:
             a=users.objects.filter(username=username)
             if a[0].psw==psw:
-                return HttpResponse("welcome manager")
+                return redirect('/signinmanager/roommanagement') ##pushing manager to room managerment website
             else:
                 messages.info(request,'wrong password')
                 return redirect('/signinmanager')
