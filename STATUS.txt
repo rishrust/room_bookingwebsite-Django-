@@ -1,0 +1,6 @@
+USER CAN SIGNUP AND SIGIN COMPLETED..................
+
+ADMIN CASN LOGIN AND EDIT ROOMS......................(20-30% WORK MORE REQUIRED)
+
+USER CAN BOOK......................IN PROGRESS..
+

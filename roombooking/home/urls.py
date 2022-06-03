@@ -7,4 +7,5 @@ urlpatterns = [
     path('signin/',views.signin,name='signin'),
     path('logout_view/',views.logout_view,name='logout'),
     path('signinmanager/',include('room.urls')),
+    path('bookroom/',include('bookroomuser.urls')),
 ]

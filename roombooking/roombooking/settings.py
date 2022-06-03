@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bookroomuser.apps.BookroomuserConfig',
     'room.apps.RoomConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',

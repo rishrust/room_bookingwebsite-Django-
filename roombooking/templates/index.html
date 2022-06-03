@@ -27,12 +27,12 @@
 				{% endif %}
 				
 				{% if login is True %}
-				<h1>Welcome {{firstname}}</h1>
+				<h1>Welcome {{firstname}}   <h3>USERNAME-{{username}}</h3>  </h1>
 				<li class="active">
-					<a href="practices.html">Book Room</a>
+					<a href="/bookroom">Book Room</a>
 				</li>
 				<li class="active">
-					<a href="contact.html">View Bookings</a>
+					<a href="/bookroom/viewbooking">View Bookings</a>
 				</li>
 				<li class="active">
 					<a href="/logout_view">Logout</a>

@@ -1,0 +1,113 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'css/styletable.css' %}">
+
+    <title> Rooms {{roomnumber}}</title>
+  </head>
+  <body>
+    <div style="width: 100%;">
+      <div style="width: 100%; height: 100px; float: left; background: rgb(185, 72, 72);"> 
+        <br></br>
+        <h5 align ="center">Book Rooms {{roomnumber}}</h5>
+        <h5 align ="center">Welcome {{fullname}}</h5>
+      </div>
+    
+
+  <div class="content">
+    
+    <div class="container">
+      <h2 class="mb-5"> </h2>
+      
+x
+      <div class="table-responsive custom-table-responsive">
+
+        <table class="table custom-table">
+          <thead>
+ <!--table starting-->
+ 
+            <tr>   
+              <th scope="col"><h3 style="text-align:left;">Rooms</h3> </th>
+              <th scope="col"><h3 style="text-align:left;">View Slots</h3> </th>
+              <th scope="col"><h3 style="text-align:left;">Availability</h3> </th>
+
+            </tr>
+          </thead>
+           <!-- each row starting-->
+          {%for room in roomlist %}
+          <tbody>
+             
+            <tr scope="row">
+              <td>
+                <h4 style="text-align:center;">{{room.roomnumber}}</h4>
+              </td>
+      
+                <td>
+                  <form method="post">
+                    {%csrf_token%}
+                    <!--input type="text" placeholder="{{room.timeslots}}" name="newtimeslot" required -->
+                    <button name="viewslots" value={{room.roomnumber}} name='viewslots'type="submit">View</button>
+                </form>
+                </td>               
+
+                <td>
+                  <h4 style="text-align:center;">
+                    {% if room.isbooked == False %}
+                        <h4 style="text-align:left;">Available</h4>
+      
+                    {% else %}
+                        <h4 style="text-align:left;">Not Available</h4>
+      
+                    {% endif %}
+                
+              <!--SeeMore BUtton start
+              <td>
+                <form method="post">
+                  {%csrf_token%}
+
+                  <button name="RoomEdit" value={{room.roomnumber}} type="submit">Edit</button>
+              </form>
+              </td>
+              SeeMore BUtton end-->
+
+                </h4>
+              </td>
+
+
+            <tr class="spacer"><td colspan="100"></td></tr>
+          </tbody>
+          {%endfor%} 
+          <!-- each row ending-->
+        </table>
+  
+
+      </div>
+
+
+    </div>
+
+  </div>
+    
+    
+
+    <script src="{%static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{%static 'js/popper.min.js' %}"></script>
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <script src="{%static 'js/main.js' %}"></script>
+    <script src="{%static 'js/tablepopup.js' %}"></script>
+  </body>
+</html>

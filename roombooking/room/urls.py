@@ -1,5 +1,5 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [ path('',views.signinmanager,name='signinmanager')
+urlpatterns = [ path('',views.signinmanager,name='signinmanager'),
 ]

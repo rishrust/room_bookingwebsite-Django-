@@ -17,16 +17,16 @@
     <!-- Style -->
     <link rel="stylesheet" href="{% static 'css/styletable.css' %}">
 
-    <title>RoomManagement</title>
+    <title>Manage {{roomnumber}}</title>
   </head>
   <body>
     <div style="width: 100%;">
       <div style="width: 100%; height: 100px; float: left; background: grey;"> 
         <br></br>
-        <h5 align ="center">Welcome {{firstname}}</h5>
+        <h5 align ="center">Manage Room {{roomnumber}}</h5>
       </div>
-      <!-- adding pop up form -->
-      <head>
+       <!-- adding pop up form -->
+       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
         body {font-family: Arial, Helvetica, sans-serif;}
@@ -102,15 +102,18 @@
         </style>
         </head>
         <body>
-        <button class="open-button" onclick="openForm()">Add Room</button>
+        <button class="open-button" onclick="openForm()">Add Room Slot</button>
         
         <div class="form-popup" id="myForm">
           <form method= 'post' class="form-container">
             {%csrf_token%}
             <h1>Create</h1>
         
-            <label for="RoomNumber"><b>Room Number</b></label>
-            <input type="text" placeholder="RoomNumber" name="RoomNumberAdd" required>
+            <label for="Date"><b>Date</b></label>
+            <input type="text" placeholder="DD/MM/YYYY" name="date" required>
+            <label for="Time Slot"><b>Time Slot</b></label>
+            <input type="text" placeholder="HH.MM 24 Hour Format" name="time1" required>
+            <input type="text" placeholder="HH.MM 24 Hour Format" name="time2" required>
             <button type="submit" class="btn">Add</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
           </form>
@@ -133,7 +136,7 @@
         
         </body>
       <!-- ending popup-->
-
+      
 
   <div class="content">
     
@@ -146,22 +149,42 @@
         <table class="table custom-table">
           <thead>
  <!--table starting-->
-            {% if roommain is True %}
+ 
             <tr>   
-              <th scope="col"><h3 style="text-align:center;">RoomNumber</h3></th>
-              <th scope="col"><h3 style="text-align:left;">SeeMore</h3> </th>
-              <th scope="col"><h3 style="text-align:center;">Availability</h3> </th>
+              <th scope="col"><h3 style="text-align:left;">Dates</h3> </th>
+              <th scope="col"><h3 style="text-align:left;">TimeSlots</h3> </th>
+              <th scope="col"><h3 style="text-align:left;">BookedStatus</h3> </th>
+
             </tr>
           </thead>
            <!-- each row starting-->
-          {%for room in roomlist %}
+          {%for room in roomschedule %}
           <tbody>
+             
             <tr scope="row">
               <td>
-                <h4 style="text-align:center;">{{room.roomnumber}}</h4>
+                <h4 style="text-align:center;">{{room.date}}</h4>
               </td>
-              
-              <!--SeeMore BUtton start-->
+      
+                <td>
+                  <form method="post">
+                    {%csrf_token%}
+                    <input type="text" placeholder="{{room.timeslots}}" name="newtimeslot" required >
+                    <button name="timeslotupdate" value={{room.id}} type="submit">Update</button>
+                </form>
+                </td>               
+
+                <td>
+                  <h4 style="text-align:center;">
+                    {% if room.isbooked == False %}
+                        <h4 style="text-align:left;">Unbooked</h4>
+      
+                    {% else %}
+                        <h4 style="text-align:left;">Booked</h4>
+      
+                    {% endif %}
+                
+              <!--SeeMore BUtton start
               <td>
                 <form method="post">
                   {%csrf_token%}
@@ -169,25 +192,9 @@
                   <button name="RoomEdit" value={{room.roomnumber}} type="submit">Edit</button>
               </form>
               </td>
-              <!--SeeMore BUtton end-->
-              <td>
-                <h4 style="text-align:center;">
-                  {% if room.isbooked == False %}
-	                    <h4 style="text-align:center;">Available</h4>
-    
-                  {% else %}
-	                    <h4 style="text-align:center;">Not Available</h4>
-    
-                  {% endif %}
+              SeeMore BUtton end-->
 
                 </h4>
-              </td>
-              <td>
-                <form method="post">
-                  {%csrf_token%}
-
-                  <button name="RoomDel" value={{room.roomnumber}} type="submit">Delete</button>
-              </form>
               </td>
 
 
@@ -196,7 +203,7 @@
           {%endfor%} 
           <!-- each row ending-->
         </table>
-        {% endif %}
+  
 
       </div>
 

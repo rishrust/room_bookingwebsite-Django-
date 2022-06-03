@@ -3,7 +3,7 @@ from pickle import FALSE
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import render,HttpResponse,redirect
-from .models import users
+from .modelsusers import users
 #from django.contrib.auth.models import User , auth
 
 
@@ -46,12 +46,13 @@ def signup(request):
 
 def signin(request):
     if request.method=='POST':
+        global username
         username=str(request.POST['username'])
         psw=str(request.POST['psw'])
         if users.objects.filter(username=username).exists():
             a=users.objects.filter(username=username)
             if psw==a[0].psw:
-                return render(request,'index.html',{'login':True,'firstname':users.objects.filter(username=username)[0].firstname})
+                return render(request,'index.html',{'login':True,'firstname':users.objects.filter(username=username)[0].firstname,'username':users.objects.filter(username=username)[0].username})
             else:
                 messages.info(request,'Enter correct password')
                 return redirect('/signin')
@@ -62,39 +63,9 @@ def signin(request):
     else:
         return render(request,'signin.html')
 
-def signinmanager(request):     ## manager signin by default ia am creating one manager rishabhadmin 
-    if users.objects.filter(username='rishabhadmin').exists():
-        pass
-    else:
-        user=users()
-        user.firstname='rishabhAdmin'
-        user.lastname=NULL
-        user.username='rishabhadmin'
-        user.psw='12345678'
-        user.phone=NULL
-        user.email=NULL
-        user.issroommanager=True
-        user.save()
-
-    if request.method=='POST':
-        username=request.POST['username']  
-        psw=request.POST['psw']
-        if users.objects.filter(username=username).exists() and users.objects.filter(username=username)[0].issroommanager==True:
-            a=users.objects.filter(username=username)
-            if a[0].psw==psw:
-                return redirect('/signinmanager/roommanagement') ##pushing manager to room managerment website
-            else:
-                messages.info(request,'wrong password')
-                return redirect('/signinmanager')
-        elif users.objects.filter(username=username).exists() :
-            messages.info(request,'Only Room Manger Can Access')
-            return redirect('/signinmanager')
-        else:
-            messages.info(request,'No Username Registered')
-            return redirect('/signinmanager')
-    else:
-        return render(request,'signinmanager.html')
 
 def logout_view(request):
     #logout(request)
     return redirect('/')
+
+
