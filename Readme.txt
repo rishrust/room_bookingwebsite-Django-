@@ -21,5 +21,8 @@ Requirements to run or edit this project___
 >>this wiil give you a link to the web application
    
 
-
-this project is not complete yet and i am currently working on it
+for any doubt youo can contact me on following links
+email-rishabhsinghastic@gmail.com
+instagram-rishabhsinghastic
+phone-9953688914
+linkedin-https://www.linkedin.com/in/rishabh-singh-419a48220?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BRZ8gNN7OTAaVHxIEy3JJtQ%3D%3D
